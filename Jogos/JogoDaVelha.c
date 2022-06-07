@@ -1,35 +1,64 @@
 //Faça um programa para jogar o jogo da velha. Ao final imprima o resultado do jogo e perguntar se deseja jogar novamente.
+/*
+    qual estrutura de dados será utilizada? -> ok
+    como inicializar nossa estrutura de dados? -> ok
+    imprimir jogo (tabuleiro) -> ok
+    ler coordenadas
+    salvar coordenadas
+    alguém ganhou por linha?
+    alguém ganhou por coluna?
+    alguém ganhou na diagonal principal?
+    alguém ganhou na diagonal secundária?
+    repetir os passos a partir de 3 até alguém ganhar ou atingir 9 jogadas.
+*/
 #include <stdio.h>
 
 int main(){
 
-    int linha, coluna, i, e;
+    int x, y, i, jogador=1;
     char tabuleiro[3][3];
 
 //Preencher o tabuleiro com espaços em branco para ganhar uma forma.
-    for(linha=0; linha<3; linha++)
+    for(x=0; x<3; x++)
     {
-        for ( coluna = 0; coluna < 3; coluna++)
+        for ( y = 0; y < 3; y++)
         {
-            tabuleiro[linha][coluna] = '  ';
+            tabuleiro[x][y] = ' ';
         }
     }
 //Preencher as linhas do tabuleiro.
-    for ( i = 0; i < 3; i++)
+    for ( x = 0; x < 3; x++)
     {
-        for ( e = 0; e < 3; e++)
+        for ( y = 0; y < 3; y++)
         {
-            printf("%c", tabuleiro[i][e]);
-            if (e < 2)
+            printf("  %c  ", tabuleiro[x][y]);
+            if (y < 2)
             {
                 printf("|");
             }
         }
-        if (i < 2)
+        if (x < 2)
         {
-            printf("\n------\n");
+            printf("\n------------------\n");
         }
-    }
+    } 
+//Ler coordenadas.
+    do
+    {
+        printf("\nLinha e coluna que você deseja jogar: ");
+        scanf("%d%d", &x, &y);
+    } while ( x<0 || x>2 || y<0 || y>2 || tabuleiro[x][y] != ' ');
     
+    if (jogador=1)
+    {
+        tabuleiro[x][y]='X';
+        jogador++;
+    }
+    else
+    {
+        tabuleiro[x][y]='O';
+        jogador=1;
+    }
+
     return 0;
 }
