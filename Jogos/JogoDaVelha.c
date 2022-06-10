@@ -1,24 +1,19 @@
-//Faça um programa para jogar o jogo da velha. Ao final imprima o resultado do jogo e perguntar se deseja jogar novamente.
-/*
-    qual estrutura de dados será utilizada? -> ok
-    como inicializar nossa estrutura de dados? -> ok
-    imprimir jogo (tabuleiro) -> ok
-    ler coordenadas
-    salvar coordenadas
-    alguém ganhou por linha?
-    alguém ganhou por coluna?
-    alguém ganhou na diagonal principal?
-    alguém ganhou na diagonal secundária?
-    repetir os passos a partir de 3 até alguém ganhar ou atingir 9 jogadas.
-*/
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(){
 
-    int x, y, i, jogador=1;
+    int x, y, jogador, vitoria, repetir;
     char tabuleiro[3][3];
-
-//Preencher o tabuleiro com espaços em branco para ganhar uma forma.
+    printf("\t-----------------------------------\n");
+    printf("\t|                                 |\n");
+    printf("\t|         JOGO  DA  VELHA         |\n");
+    printf("\t-----------------------------------\n\n");
+    printf("\n     Jogador 1 = x \n     Jogador 2 = o\n\n");
+do
+{
+    jogador=1;
+    vitoria=0;
     for(x=0; x<3; x++)
     {
         for ( y = 0; y < 3; y++)
@@ -26,7 +21,87 @@ int main(){
             tabuleiro[x][y] = ' ';
         }
     }
-//Preencher as linhas do tabuleiro.
+    while (vitoria==0){
+    printf("\n\n\t\t  0     1     2  \n");
+    for ( x = 0; x < 3; x++){
+        for ( y = 0; y < 3; y++){
+            if (y==0)
+            printf("\t\t");
+            printf("  %c  ", tabuleiro[x][y]);
+            if (y < 2)
+             printf("|");
+            if (y==2)
+             printf("  %d", x);
+        }
+        if (x < 2)
+        {
+            printf("\n\t\t------------------\n");
+        }
+    } 
+    do{
+        printf("\n\n\nLinha que você deseja jogar: ");
+        scanf("%d", &x);
+        printf("\nColuna que você deseja jogar:");
+        scanf("%d", &y);
+    } while ( x<0 || x>2 || y<0 || y>2 || tabuleiro[x][y] != ' ');
+        if (jogador==1)
+    {
+        tabuleiro[x][y]='x';
+        jogador++;
+    }
+    else
+    {
+        tabuleiro[x][y]='o';
+        jogador=1;
+    }
+    if ((tabuleiro[0][0]=='o' && tabuleiro[0][1]=='o' && tabuleiro[0][2]=='o') ||
+        (tabuleiro[1][0]=='o' && tabuleiro[1][1]=='o' && tabuleiro[1][2]=='o') ||
+        (tabuleiro[2][0]=='o' && tabuleiro[2][1]=='o' && tabuleiro[2][2]=='o'))
+    {
+        printf("Jogador 1 venceu!! \nParabéns!!");
+        vitoria++;
+    }else
+    {
+        if ((tabuleiro[0][0]=='x' && tabuleiro[0][1]=='x' && tabuleiro[0][2]=='x') ||
+            (tabuleiro[1][0]=='x' && tabuleiro[1][1]=='x' && tabuleiro[1][2]=='x') ||
+            (tabuleiro[2][0]=='x' && tabuleiro[2][1]=='x' && tabuleiro[2][2]=='x'))
+        {
+            printf("Jogador 2 venceu!! \nParabéns\n\n!!");
+            vitoria++;
+        }else
+        {
+            if ((tabuleiro[0][0]=='o' && tabuleiro[1][0]=='o' && tabuleiro[2][0]=='o') ||
+                (tabuleiro[0][1]=='o' && tabuleiro[1][1]=='o' && tabuleiro[2][1]=='o') ||
+                (tabuleiro[0][2]=='o' && tabuleiro[1][2]=='o' && tabuleiro[2][2]=='o'))
+            {
+                printf("Jogador 1 venceu!! \nParabéns\n\n!!");
+                vitoria++;
+            }else
+            {
+                if ((tabuleiro[0][0]=='x' && tabuleiro[1][0]=='x' && tabuleiro[2][0]=='x') ||
+                    (tabuleiro[0][1]=='x' && tabuleiro[1][1]=='x' && tabuleiro[2][1]=='x') ||
+                    (tabuleiro[0][2]=='x' && tabuleiro[1][2]=='x' && tabuleiro[2][2]=='x'))
+                {
+                    printf("Jogador 2 venceu!! \nParabéns\n\n!!");
+                    vitoria++;
+                {
+                    if ((tabuleiro[0][0]=='o' && tabuleiro[1][1]=='o' && tabuleiro[2][2]=='o') ||
+                        (tabuleiro[0][2]=='o' && tabuleiro[1][1]=='o' && tabuleiro[2][0]=='o'))
+                    {
+                        printf("Jogador 1 venceu!! \nParabéns\n\n!!");
+                        vitoria++;
+                    {
+                        if ((tabuleiro[0][0]=='x' && tabuleiro[1][1]=='x' && tabuleiro[2][2]=='x') ||
+                            (tabuleiro[0][2]=='x' && tabuleiro[1][1]=='x' && tabuleiro[2][0]=='x'))
+                        {
+                            printf("Jogador 2 venceu!! \nParabéns\n\n!!");
+                            vitoria++;
+                        }   
+                    }   
+                }
+            }  
+         }
+    }}}}
     for ( x = 0; x < 3; x++)
     {
         for ( y = 0; y < 3; y++)
@@ -42,23 +117,11 @@ int main(){
             printf("\n------------------\n");
         }
     } 
-//Ler coordenadas.
-    do
-    {
-        printf("\nLinha e coluna que você deseja jogar: ");
-        scanf("%d%d", &x, &y);
-    } while ( x<0 || x>2 || y<0 || y>2 || tabuleiro[x][y] != ' ');
-    
-    if (jogador=1)
-    {
-        tabuleiro[x][y]='X';
-        jogador++;
+     if(vitoria == 0){
+        printf("\nDeu velha!\n");
     }
-    else
-    {
-        tabuleiro[x][y]='O';
-        jogador=1;
-    }
-
-    return 0;
+    printf("\nDigite 1 para jogar novamente: \n");
+    scanf("%d", &repetir);
+}while(repetir == 1);
+return 0;
 }
